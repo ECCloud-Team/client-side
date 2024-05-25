@@ -9,10 +9,20 @@ import {
   faStar,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical";
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [expanded, setExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [newdropdownOpen, setNewDropdownOpen] = useState(false);
+  const [userdropdownOpen, setUserDropdownOpen] = useState(false);
+
+  const toggleNewDropdown = () => {
+    setNewDropdownOpen(!newdropdownOpen);
+  };
+  const toggleUserDropdown = () => {
+    setUserDropdownOpen(!userdropdownOpen);
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -75,7 +85,32 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
               <h4 className="font-seibold">Test</h4>
               <span className="text-xs text-gray-600">Tes@gmail.com</span>
             </div>
-            <MoreVertical size={20} />
+            <button
+              type="button"
+              className=""
+              data-dropdown-toggle="dropdown"
+              onClick={toggleUserDropdown}
+            >
+              <FontAwesomeIcon
+                icon={faEllipsisVertical}
+                className="mr-2 mt-0.5"
+              />
+            </button>
+            {userdropdownOpen && (
+              <ul className="absolute left-56 bottom-5 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
+                <Link href="/categories/New-Folder" className="text-sm  hover:">
+                  Settings
+                </Link>
+                <div className="h-px bg-gray-300 w-full"></div>
+                <Link href="/activitylog" className="text-sm">
+                  Activity
+                </Link>
+                <div className="h-px bg-gray-300 w-full"></div>
+                <Link href="/categories/File-Upload" className="text-sm">
+                  Log Out
+                </Link>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
