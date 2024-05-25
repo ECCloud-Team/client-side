@@ -2,7 +2,6 @@
 import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react'
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faPlus, faStar, faTrash} from '@fortawesome/free-solid-svg-icons';
 
@@ -33,13 +32,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         </button>
                         {dropdownOpen && (
                             <ul className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 shadow bg-white rounded-md">
-                            <Link href="/categories/Best-Sellers" className="text-sm">
+                            <Link href="/categories/New-Folder" className="text-sm">
                                 New Folder
                             </Link>
-                            <Link href="/categories/Fiction" className="text-sm">
+                            <Link href="/categories/File-Upload" className="text-sm">
                                 File Upload
                             </Link>
-                            <Link href="/categories/Romance" className="text-sm">
+                            <Link href="/categories/Folder-Upload" className="text-sm">
                                 Folder Upload
                             </Link>
                             </ul>
@@ -60,7 +59,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         type="button"
                         className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
                         <FontAwesomeIcon icon={faTrash} className='mr-2 justify-center' />
-                        New Folder
+                        Bins
                         </button>
                         </div>
                 </div>
