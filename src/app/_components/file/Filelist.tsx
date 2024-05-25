@@ -1,26 +1,16 @@
 import React from "react";
 import Fileitems from "./Fileitems";
 import { File } from "@/types/File";
-// import useFolderTree from "@/hooks/useFolderTree";
 
 interface FilelistProps {
-  files: File[] | null; 
+  files: File[] | null;
 }
 
 export default function Filelist({ files }: FilelistProps) {
   return (
     <div className="p-7 mb-16 mx-12 bg-indigo-50 rounded-lg">
       <h2 className="text-[17px] font-bold items-center font-sans">Files</h2>
-      <div
-        className="grid grid-cols-1
-        md:grid-cols-2 
-        text-[13px] 
-        font-semibold
-        border-b-[1px]
-        pb-2 mt-3
-        border-gray-300
-         text-gray-400"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 text-[13px]  font-semibold border-b-[1px] pb-2 mt-3 border-gray-300 text-gray-400">
         <h2>Name</h2>
         <div className="grid grid-cols-2">
           <h2>Modified</h2>
