@@ -1,22 +1,24 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Folder } from "@/types/Folder";
+import { File } from "@/types/File";
 
-interface Folder {
-  _id: string;
-  user_id: string;
-  name: string;
-  parent_id: string | null;
-  files: File[];
-  subFolders: Folder[];
-}
+// interface Folder {
+//   _id: string;
+//   user_id: string;
+//   name: string;
+//   parent_id: string | null;
+//   files: File[];
+//   subFolders: Folder[];
+// }
 
-interface File {
-  _id: string;
-  user_id: string;
-  folder_id: string;
-  name: string;
-  // tambahkan field lain sesuai kebutuhan
-}
+// interface File {
+//   _id: string;
+//   user_id: string;
+//   folder_id: string;
+//   name: string;
+//   // tambahkan field lain sesuai kebutuhan
+// }
 
 const useFolderTree = (userId: string) => {
   const [folderTree, setFolderTree] = useState<Folder[] | null>(null);

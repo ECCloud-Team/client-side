@@ -1,12 +1,15 @@
 "use client";
-import Sidebar from "./_components/Sidebar";
-import Searchbar from "./_components/Searchbar";
-import Folderlist from "./_components/folder/Folderlist";
-import useGetFoldersInRoot from "@/hooks/useGetFoldersInRoot";
-import useGetFilesInRoot from "@/hooks/useGetFilesInRoot";
-import Filelist from "./_components/file/Filelist";
-import { use } from "react";
-import path from "path";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import useGetFolderByParentId from "@/hooks/useGetFoldersByParentId";
+import useGetFilesByFolderId from "@/hooks/useGetFilesByFolderId";
+import useGetFolderById from "@/hooks/useGetFolderById";
+import { cp } from "fs";
+import Searchbar from "@/app/_components/Searchbar";
+import Folderlist from "@/app/_components/folder/Folderlist";
+import Sidebar from "@/app/_components/Sidebar";
+import Filelist from "@/app/_components/file/Filelist";
 
 const folderlist = [
   {
@@ -104,23 +107,34 @@ const fileList = [
   },
 ];
 
-export default function Home() {
-  const user_id = "user123";
-  // const { folders, loading, error } = useGetFoldersInRoot(user_id);
+const Folder = ({ params }: { params: { id: string } }) => {
+  // const router = useRouter();
+  // console.log(router);
+  // const { id } = router.query;
+  const { id } = params;
+  console.log(id);
+
+  // const { folder, loading, error } = useGetFolderById(id as string);
+  // const {
+  //   folders,
+  //   loading: loadingFolders,
+  //   error: errorFolders,
+  // } = useGetFolderByParentId(id as string);
   // const {
   //   files,
   //   loading: loadingFiles,
   //   error: errorFiles,
-  // } = useGetFilesInRoot(user_id);
+  // } = useGetFilesByFolderId(id as string);
+
   return (
     <div className="flex">
-      <Sidebar >
+      <Sidebar>
         <li></li>
       </Sidebar>
-      <div className="w-full">
+      <div className="flex flex-col w-full">
         <Searchbar />
-        <Folderlist folders={folderlist} />
-        {/* <Folderlist folders={folders} /> */}
+        <Folderlist folders={folderlist}  />
+        {/* <Folderlist folders={folders}  /> */}
         <div className="flex flex-col gap-8">
           <Filelist files={fileList}/>
           {/* <Filelist files={files}/> */}
@@ -128,4 +142,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Folder;
