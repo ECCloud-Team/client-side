@@ -1,11 +1,16 @@
 "use client";
-import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react'
+import { ChevronFirst, ChevronLast, MoreVertical } from "lucide-react";
 import React, { useState } from "react";
 import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faFolder, faPlus, faStar, faTrash} from '@fortawesome/free-solid-svg-icons';
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFolder,
+  faPlus,
+  faStar,
+  faTrash,
+  faEllipsisVertical,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const [expanded, setExpanded] = useState(false)
@@ -27,43 +32,49 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         FitBox
                         <button
                             type="button"
-                            className="inline-flex mt-2 px-7 py-2 text-[16px] text-sm bg-white border border-gray-300 rounded-full"
+                            className="inline-flex font-sans mt-2 px-7 py-2 text-[16px] text-sm bg-white border border-gray-300 rounded-full"
                             data-dropdown-toggle="dropdown"
                             onClick={toggleNewDropdown}
                         >
-                            <FontAwesomeIcon icon={faPlus} className="mr-2 mt-0.5" />
+                            <FontAwesomeIcon icon={faPlus} className="mr-2 mt-1" />
                             New
                         </button>
                         {newdropdownOpen && (
                             <ul className="absolute z-[1] flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md">
-                            <Link href="/categories/New-Folder" className="text-sm">
+                            <Link href="/categories/New-Folder" className="text-sm font-sans font-semibold">
                                 New Folder
                             </Link>
                             <div className="h-px bg-gray-300 w-full"></div>
-                            <Link href="/categories/File-Upload" className="text-sm">
+                            <Link href="/categories/File-Upload" className="text-sm font-sans font-semibold">
                                 File Upload
                             </Link>
                             <div className="h-px bg-gray-300 w-full"></div>
-                            <Link href="/categories/Folder-Upload" className="text-sm">
+                            <Link href="/categories/Folder-Upload" className="text-sm font-sans font-semibold">
                                 Folder Upload
                             </Link>
                             </ul>
                         )}
                         <button
                         type="button"
-                        className="flex justify-between gap-2 mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300">
-                        <FontAwesomeIcon icon={faFolder} className='mr-2' />
+                        className="flex justify-between gap-2 font-sans mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300">
+                        <FontAwesomeIcon icon={faHome} className='mr-2 ' />
+                        <Link href="/">Home</Link>
+                        </button>
+                        <button
+                        type="button"
+                        className="flex justify-between gap-2 font-sans mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
+                        <FontAwesomeIcon icon={faFolder} className='mr-2 ' />
                         New Folder
                         </button>
                         <button
                         type="button"
-                        className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
+                        className="flex justify-between gap-2 font-sans mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
                         <FontAwesomeIcon icon={faStar} className='mr-2 mb-0.5' />
                         Starred
                         </button>
                         <button
                         type="button"
-                        className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
+                        className="flex justify-between gap-2 font-sans mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300">
                         <FontAwesomeIcon icon={faTrash} className='mr-2 justify-center' />
                         Bins
                         </button>
@@ -86,15 +97,15 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                           </button>
                           {userdropdownOpen && (
                               <ul className="absolute left-56 bottom-5 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
-                              <Link href="/categories/New-Folder" className="text-sm  hover:">
+                              <Link href="/categories/New-Folder" className="text-sm font-sans font-semibold">
                                   Settings
                               </Link>
                               <div className="h-px bg-gray-300 w-full"></div>
-                              <Link href="/activitylog" className="text-sm">
+                              <Link href="/activitylog" className="text-sm font-sans font-semibold">
                                   Activity
                               </Link>
                               <div className="h-px bg-gray-300 w-full"></div>
-                              <Link href="/categories/File-Upload" className="text-sm">
+                              <Link href="/categories/File-Upload" className="text-sm font-sans font-semibold">
                                   Log Out
                               </Link>
                               </ul>
