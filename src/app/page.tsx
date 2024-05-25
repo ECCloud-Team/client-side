@@ -5,8 +5,17 @@ import { useEffect } from "react";
 import Sidebar from "./_components/Sidebar";
 import Searchbar from "./_components/Searchbar";
 import Folderlist from "./_components/folder/Folderlist";
+import useGetFoldersInRoot from "@/hooks/useGetFoldersInRoot";
+import useGetFilesInRoot from "@/hooks/useGetFilesInRoot";
 
 export default function Home() {
+  const userID = "user123";
+  const { folders, loading, error } = useGetFoldersInRoot(userID);
+  const {
+    files,
+    loading: loadingFiles,
+    error: errorFiles,
+  } = useGetFilesInRoot(userID);
   return (
     <div className="flex">
       <Sidebar >
@@ -14,7 +23,7 @@ export default function Home() {
       </Sidebar>
       <div className="flex flex-col w-full">
         <Searchbar />
-        <Folderlist />
+        <Folderlist folders={folders} files={files}/>
       </div>
     </div>
   );
