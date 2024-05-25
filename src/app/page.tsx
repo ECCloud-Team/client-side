@@ -6,6 +6,7 @@ import Sidebar from "./_components/Sidebar";
 import Searchbar from "./_components/Searchbar";
 import Folderlist from "./_components/folder/Folderlist";
 import Filelist from "./_components/file/Filelist";
+import ActivityPage from "./activitylog/activity";
 
 export default function Home() {
   return (

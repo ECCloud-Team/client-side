@@ -9,11 +9,15 @@ import { faEllipsisVertical, faFolder, faPlus, faStar, faTrash} from '@fortaweso
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const [expanded, setExpanded] = useState(false)
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [newdropdownOpen, setNewDropdownOpen] = useState(false);
+    const [userdropdownOpen, setUserDropdownOpen] = useState(false);
 
   
-    const toggleDropdown = () => {
-      setDropdownOpen(!dropdownOpen);
+    const toggleNewDropdown = () => {
+      setNewDropdownOpen(!newdropdownOpen);
+    };
+    const toggleUserDropdown = () => {
+      setUserDropdownOpen(!userdropdownOpen);
     };
     return (
         <aside className="h-screen w-60">
@@ -25,12 +29,12 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             type="button"
                             className="inline-flex mt-2 px-7 py-2 text-[16px] text-sm bg-white border border-gray-300 rounded-full"
                             data-dropdown-toggle="dropdown"
-                            onClick={toggleDropdown}
+                            onClick={toggleNewDropdown}
                         >
                             <FontAwesomeIcon icon={faPlus} className="mr-2 mt-0.5" />
                             New
                         </button>
-                        {dropdownOpen && (
+                        {newdropdownOpen && (
                             <ul className="absolute z-[1] flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md">
                             <Link href="/categories/New-Folder" className="text-sm">
                                 New Folder
@@ -72,7 +76,29 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             <h4 className='font-seibold'>Test</h4>
                             <span className='text-xs text-gray-600'>Tes@gmail.com</span>
                         </div>
-                        <FontAwesomeIcon icon={faEllipsisVertical} className='mr-3 mt-0.4'/>
+                        <button
+                        type="button"
+                          className=""
+                          data-dropdown-toggle="dropdown"
+                          onClick={toggleUserDropdown}
+                          >
+                          <FontAwesomeIcon icon={faEllipsisVertical} className="mr-2 mt-0.5" />
+                          </button>
+                          {userdropdownOpen && (
+                              <ul className="absolute left-56 bottom-5 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
+                              <Link href="/categories/New-Folder" className="text-sm  hover:">
+                                  Settings
+                              </Link>
+                              <div className="h-px bg-gray-300 w-full"></div>
+                              <Link href="/activitylog" className="text-sm">
+                                  Activity
+                              </Link>
+                              <div className="h-px bg-gray-300 w-full"></div>
+                              <Link href="/categories/File-Upload" className="text-sm">
+                                  Log Out
+                              </Link>
+                              </ul>
+                        )}
                     </div>
                 </div>
             </nav>
