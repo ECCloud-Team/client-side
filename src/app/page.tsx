@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Sidebar from "./_components/Sidebar";
 import Searchbar from "./_components/Searchbar";
 import Folderlist from "./_components/folder/Folderlist";
+import Filelist from "./_components/file/Filelist";
 
 export default function Home() {
   return (
@@ -12,9 +13,12 @@ export default function Home() {
       <Sidebar >
         <li></li>
       </Sidebar>
-      <div className="flex flex-col w-full">
+      <div className="w-full">
         <Searchbar />
-        <Folderlist />
+        <div className="flex flex-col gap-8">
+          <Folderlist />
+          <Filelist />
+        </div>
       </div>
     </div>
   );

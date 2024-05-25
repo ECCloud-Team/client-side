@@ -15,7 +15,7 @@ export default function Folderitems({folder}:FolderitemsProps) {
         <div className="w-full flex flex-col justify-center items-center h-[140px] border-[2px] border-white rounded-lg p-5 
         gap-1 hover:scale-105 hover:shadow-md cursor-pointer">
             <FontAwesomeIcon icon={faFolder} className='text-[40px]' />
-            <h2 className="line-clamp-2 text-center">{folder.name}</h2>
+            <h2 className="line-clamp-2 pt-2 text-center">{folder.name}</h2>
         </div>
     )
 

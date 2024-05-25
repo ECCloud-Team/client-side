@@ -66,13 +66,13 @@ export default function Folderlist() {
   // console.log(folderTree);
   return (
     <div className="p-7 h-[250px]  mx-12 bg-indigo-50 rounded-lg">
-      <h2 className="text-[17px] font-semibold items-center">
+      <h2 className="text-[17px] font-bold items-center font-sans">
         Recent Folders
         <span className="float-right text-blue-500 font-normal text-[13px] cursor-pointer">
           View All
         </span>
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-3 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-3 gap-3 font-sans text-[14px]">
         {folderlist.map((item, i) => (
           <Folderitems key={i} folder={item} />
         ))}
