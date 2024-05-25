@@ -8,8 +8,9 @@ import {
   faPlus,
   faStar,
   faTrash,
+  faEllipsisVertical,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical";
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [expanded, setExpanded] = useState(false);
@@ -55,6 +56,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                 </Link>
               </ul>
             )}
+            <button
+              type="button"
+              className="flex justify-between gap-2 font-sans mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+            >
+              <FontAwesomeIcon icon={faHome} className="mr-2 " />
+              <Link href="/">Home</Link>
+            </button>
             <button
               type="button"
               className="flex justify-between gap-2 mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300"
