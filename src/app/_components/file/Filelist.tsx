@@ -1,5 +1,6 @@
 import React from "react";
 import Fileitems from "./Fileitems";
+
 // import useFolderTree from "@/hooks/useFolderTree";
 
 export default function Filelist() {
@@ -86,7 +87,7 @@ export default function Filelist() {
         border-gray-300
          text-gray-400'>
             <h2>Name</h2>
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-3'>
                 <h2>Modified</h2>
                 <h2>Size
                 {/* <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>deleteFile(file)}//
@@ -99,10 +100,13 @@ export default function Filelist() {
             </div>
         </div>
         {fileList&&fileList.map((item,index)=>(
-            <div key={index}>
-            
-            <Fileitems file={item} key={index}/> 
-            </div>  
+            <div>
+                <div key={index}>
+                
+                <Fileitems file={item} key={index}/> 
+                </div>
+            </div>
+              
              
         ))}
     </div>

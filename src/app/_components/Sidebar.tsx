@@ -3,7 +3,7 @@ import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react'
 import React, { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder, faPlus, faStar, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faFolder, faPlus, faStar, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -31,13 +31,15 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             New
                         </button>
                         {dropdownOpen && (
-                            <ul className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 shadow bg-white rounded-md">
+                            <ul className="absolute z-[1] flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md">
                             <Link href="/categories/New-Folder" className="text-sm">
                                 New Folder
                             </Link>
+                            <div className="h-px bg-gray-300 w-full"></div>
                             <Link href="/categories/File-Upload" className="text-sm">
                                 File Upload
                             </Link>
+                            <div className="h-px bg-gray-300 w-full"></div>
                             <Link href="/categories/Folder-Upload" className="text-sm">
                                 Folder Upload
                             </Link>
@@ -70,7 +72,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             <h4 className='font-seibold'>Test</h4>
                             <span className='text-xs text-gray-600'>Tes@gmail.com</span>
                         </div>
-                        <MoreVertical size={20}/>
+                        <FontAwesomeIcon icon={faEllipsisVertical} className='mr-3 mt-0.4'/>
                     </div>
                 </div>
             </nav>
