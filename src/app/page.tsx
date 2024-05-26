@@ -2,8 +2,8 @@
 import Sidebar from "./_components/Sidebar";
 import Searchbar from "./_components/Searchbar";
 import Folderlist from "./_components/folder/Folderlist";
-import useGetFoldersInRoot from "@/hooks/useGetFoldersInRoot";
-import useGetFilesInRoot from "@/hooks/useGetFilesInRoot";
+import useGetFoldersInRoot from "@/hooks/dashboard/useGetFoldersInRoot";
+import useGetFilesInRoot from "@/hooks/dashboard/useGetFilesInRoot";
 import Filelist from "./_components/file/Filelist";
 import { use } from "react";
 import path from "path";
@@ -106,12 +106,12 @@ const fileList = [
 
 export default function Home() {
   const user_id = "user123";
-  // const { folders, loading, error } = useGetFoldersInRoot(user_id);
-  // const {
-  //   files,
-  //   loading: loadingFiles,
-  //   error: errorFiles,
-  // } = useGetFilesInRoot(user_id);
+  const { folders, loading, error } = useGetFoldersInRoot(user_id);
+  const {
+    files,
+    loading: loadingFiles,
+    error: errorFiles,
+  } = useGetFilesInRoot(user_id);
   return (
     <div className="flex">
       <Sidebar >
@@ -119,11 +119,11 @@ export default function Home() {
       </Sidebar>
       <div className="w-full">
         <Searchbar />
-        <Folderlist folders={folderlist} />
-        {/* <Folderlist folders={folders} /> */}
+        {/* <Folderlist folders={folderlist} /> */}
+        <Folderlist folders={folders} />
         <div className="flex flex-col gap-8">
-          <Filelist files={fileList}/>
-          {/* <Filelist files={files}/> */}
+          {/* <Filelist files={fileList}/> */}
+          <Filelist files={files}/>
         </div>
       </div>
     </div>

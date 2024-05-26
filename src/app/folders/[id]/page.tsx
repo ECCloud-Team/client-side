@@ -2,9 +2,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useGetFolderByParentId from "@/hooks/useGetFoldersByParentId";
-import useGetFilesByFolderId from "@/hooks/useGetFilesByFolderId";
-import useGetFolderById from "@/hooks/useGetFolderById";
+import useGetFolderByParentId from "@/hooks/dashboard/useGetFoldersByParentId";
+import useGetFilesByFolderId from "@/hooks/dashboard/useGetFilesByFolderId";
+import useGetFolderById from "@/hooks/dashboard/useGetFolderById";
 import { cp } from "fs";
 import Searchbar from "@/app/_components/Searchbar";
 import Folderlist from "@/app/_components/folder/Folderlist";
@@ -114,17 +114,17 @@ const Folder = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   console.log(id);
 
-  // const { folder, loading, error } = useGetFolderById(id as string);
-  // const {
-  //   folders,
-  //   loading: loadingFolders,
-  //   error: errorFolders,
-  // } = useGetFolderByParentId(id as string);
-  // const {
-  //   files,
-  //   loading: loadingFiles,
-  //   error: errorFiles,
-  // } = useGetFilesByFolderId(id as string);
+  const { folder, loading, error } = useGetFolderById(id as string);
+  const {
+    folders,
+    loading: loadingFolders,
+    error: errorFolders,
+  } = useGetFolderByParentId(id as string);
+  const {
+    files,
+    loading: loadingFiles,
+    error: errorFiles,
+  } = useGetFilesByFolderId(id as string);
 
   return (
     <div className="flex">
@@ -133,11 +133,11 @@ const Folder = ({ params }: { params: { id: string } }) => {
       </Sidebar>
       <div className="flex flex-col w-full">
         <Searchbar />
-        <Folderlist folders={folderlist}  />
-        {/* <Folderlist folders={folders}  /> */}
+        {/* <Folderlist folders={folderlist}  /> */}
+        <Folderlist folders={folders}  />
         <div className="flex flex-col gap-8">
-          <Filelist files={fileList}/>
-          {/* <Filelist files={files}/> */}
+          {/* <Filelist files={fileList}/> */}
+          <Filelist files={files}/>
         </div>
       </div>
     </div>
