@@ -10,6 +10,8 @@ import Searchbar from "@/app/_components/Searchbar";
 import Folderlist from "@/app/_components/folder/Folderlist";
 import Sidebar from "@/app/_components/Sidebar";
 import Filelist from "@/app/_components/file/Filelist";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const folderlist = [
   {
@@ -133,7 +135,18 @@ const Folder = ({ params }: { params: { id: string } }) => {
       </Sidebar>
       <div className="flex flex-col w-full">
         <Searchbar />
+        <div>
+          <div className="flex mb-4">
+            <button
+                  type="button"
+                  className="flex items-center text-sm hover:text-blue-300"
+                >
+                  <Link href='/' style={{fontFamily:'Inter'}}><FontAwesomeIcon icon={faCircleArrowLeft} className="ml-12 text-[24px] mr-2 justify-center" /></Link>
+            </button>
+            <h2 className="font-bold text-[24px] pb-0.5">Nested Folder</h2>
+          </div>
         <Folderlist folders={folderlist}  />
+        </div>
         {/* <Folderlist folders={folders}  /> */}
         <div className="flex flex-col gap-8">
           <Filelist files={fileList}/>
