@@ -15,7 +15,7 @@ export default function Folderitems({ folder }: FolderitemsProps) {
         gap-1 hover:scale-105 hover:shadow-md cursor-pointer"
     >
       <FontAwesomeIcon icon={faFolder} className="text-[40px]" />
-      <h2 className="line-clamp-2 text-center">{folder.name}</h2>
+      <h2 className="line-clamp-2 text-center" style={{fontFamily:'Inter'}}>{folder.name}</h2>
     </div>
   );
 }
