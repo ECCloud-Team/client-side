@@ -5,18 +5,18 @@ import { File } from "@/types/File";
 
 interface FileRenameParams {
   id: string;
-  name: string;
+  filename: string;
 }
 
 const useRenameFile = () => {
-  const renameFile = async ({ id, name }: FileRenameParams) => {
+  const renameFile = async ({ id, filename }: FileRenameParams) => {
     try {
       const res = await fetch(`http://localhost:4000/files/rename/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ filename }),
       });
       if (!res.ok) {
         throw new Error("Network response was not ok");

@@ -1,11 +1,7 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Folder } from "@/types/Folder";
-import { File } from "@/types/File";
+"use client";;
 
 interface FolderDeleteParams {
   id: string;
-  name: string;
 }
 
 const useDeleteFolder = () => {

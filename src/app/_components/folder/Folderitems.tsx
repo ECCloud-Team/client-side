@@ -8,6 +8,8 @@ import {
 import { Folder } from "@/types/Folder";
 import { useState } from "react";
 import Link from "next/link";
+import RenameFolderModal from "../renameFolder";
+import useDeleteFolder from "@/hooks/dashboard/useDeleteFolder";
 
 interface FolderitemsProps {
   folder: Folder;
@@ -15,9 +17,22 @@ interface FolderitemsProps {
 
 export default function Folderitems({ folder }: FolderitemsProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
+  const [showModal, setShowModal] = useState(false);
+  const { deleteFolder } = useDeleteFolder();
+  const toggleDropdown = (e: any) => {
+    e.stopPropagation();
     setDropdownOpen(!dropdownOpen);
+  };
+  const openModal = (e: any) => {
+    e.stopPropagation();
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const handleDelete = () => {
+    deleteFolder({ id: folder._id });
   };
   return (
     <div
@@ -29,28 +44,28 @@ export default function Folderitems({ folder }: FolderitemsProps) {
         <span className="">
           <button
             type="button"
-            className="absolute top-2 right-2"
+            className="absolute top-2 right-2 z-20 hover:bg-gray-300 flex items-center mx-auto justify-center rounded-full w-6 h-6"
             data-dropdown-toggle="dropdown"
             onClick={toggleDropdown}
           >
-            <FontAwesomeIcon
-              icon={faEllipsisVertical}
-              className="mr-2 mt-0.5"
-            />
+            <FontAwesomeIcon icon={faEllipsisVertical} className="" />
           </button>
         </span>
         <div></div>
       </div>
       {dropdownOpen && (
-        <ul className="absolute right-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
-          <Link href="/categories/New-Folder" className="text-sm  hover:">
+        <div className="absolute right-1 z-30 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
+          <button onClick={openModal} className="text-sm z-30">
             Rename Folder
-          </Link>
+          </button>
           <div className="h-px bg-gray-300 w-full"></div>
-          <Link href="/categories/File-Upload" className="text-sm">
-            Delete Folder
-          </Link>
-        </ul>
+          <button onClick={handleDelete} className="text-sm" >Delete Folder</button>
+          <RenameFolderModal
+            folder_id={folder._id}
+            isOpen={showModal}
+            onClose={closeModal}
+          />
+        </div>
       )}
       <h2 className="line-clamp-2 text-center" style={{ fontFamily: "Inter" }}>
         {folder.name}

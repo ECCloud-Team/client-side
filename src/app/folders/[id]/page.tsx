@@ -110,11 +110,7 @@ const fileList = [
 ];
 
 const Folder = ({ params }: { params: { id: string } }) => {
-  // const router = useRouter();
-  // console.log(router);
-  // const { id } = router.query;
   const { id } = params;
-  console.log(id);
 
   const { folder, loading, error } = useGetFolderById(id as string);
   const {
@@ -130,7 +126,7 @@ const Folder = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="flex">
-      <Sidebar>
+      <Sidebar folderParentId={id}>
         <li></li>
       </Sidebar>
       <div className="flex flex-col w-full">

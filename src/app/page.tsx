@@ -114,7 +114,7 @@ export default function Home() {
   } = useGetFilesInRoot(user_id);
   return (
     <div className="flex">
-      <Sidebar >
+      <Sidebar folderParentId={""}>
         <li></li>
       </Sidebar>
       <div className="w-full">

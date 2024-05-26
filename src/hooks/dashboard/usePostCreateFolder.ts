@@ -10,7 +10,7 @@ interface FolderParams {
 }
 
 const usePostCreateFolder = () => {
-    const createFolder = async ({user_id, name, parent_id}: FolderParams) => {
+    const createFolder = async ({user_id, name, parent_id=null}: FolderParams) => {
         try {
             const res = await fetch("http://localhost:4000/folders/", {
                 method: "POST",

@@ -3,16 +3,15 @@ import { useState, useEffect } from "react";
 import { Folder } from "@/types/Folder";
 import { File } from "@/types/File";
 
-interface FileDownloadParams {
+interface FileDeleteParams {
   id: string;
 }
 
-const useDownloadFile = () => {
-const [file, setFile] = useState<File[]>([]);
-  const downloadFile = async ({ id }: FileDownloadParams) => {
+const useDeleteFile = () => {
+  const deleteFile = async ({ id }: FileDeleteParams) => {
     try {
-      const res = await fetch(`http://localhost:4000/files/download/${id}`, {
-        method: "GET",
+      const res = await fetch(`http://localhost:4000/files/${id}`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
@@ -20,13 +19,12 @@ const [file, setFile] = useState<File[]>([]);
       if (!res.ok) {
         throw new Error("Network response was not ok");
       }
-      setFile(await res.json());
       return res.json();
     } catch (err: any) {
       throw new Error(err.message);
     }
   }
-  return { downloadFile, file };
+  return { deleteFile };
 };
 
-export default useDownloadFile;
+export default useDeleteFile;

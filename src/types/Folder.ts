@@ -1,9 +1,9 @@
 // import { ObjectId } from 'mongodb';
 export type Folder = {
-  _id: String;
+  _id: string;
   user_id: string;
   name: string;
-  parent_id: String | null;
+  parent_id: string | null;
   createdDate: Date;
     __v: number;
 };

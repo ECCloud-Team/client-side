@@ -3,31 +3,28 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder, faTimes } from "@fortawesome/free-solid-svg-icons";
-import usePostCreateFolder from "@/hooks/dashboard/usePostCreateFolder";
+import useRenameFile from "@/hooks/dashboard/useRenameFile";
 
-const CreateFolderModal = ({
+const RenameFileModal = ({
   isOpen,
   onClose,
-  parent_id,
+  file_id
 }: {
   isOpen: boolean;
   onClose: () => void;
-  parent_id: string;
+  file_id: string;
 }) => {
-  const { createFolder } = usePostCreateFolder();
-  const [folderName, setFolderName] = useState("");
-  const handleCreateFolder = (e: React.FormEvent<HTMLFormElement>) => {
+  const { renameFile } = useRenameFile();
+  const [fileName, setFileName] = useState("");
+  const handleRenameFile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lakukan tindakan untuk membuat folder baru di sini
-    createFolder({
-      name: folderName,
-      user_id: "user123",
-      parent_id: parent_id,
+    // Lakukan tindakan untuk membuat File baru di sini
+    renameFile({
+      filename: fileName,
+      id: file_id,
     });
-    console.log("Folder Name:", folderName);
-    // Reset nilai input setelah membuat folder
-    setFolderName("");
-    // Tutup modal setelah proses pembuatan folder selesai
+    setFileName("");
+    // Tutup modal setelah proses pembuatan File selesai
     onClose();
   };
 
@@ -38,7 +35,7 @@ const CreateFolderModal = ({
       <div className="bg-white rounded-lg p-6 max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold" style={{ fontFamily: "Inter" }}>
-            Create New Folder
+            Rename File
           </h2>
           <button
             type="button"
@@ -48,14 +45,14 @@ const CreateFolderModal = ({
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
-        <form onSubmit={handleCreateFolder}>
+        <form onSubmit={handleRenameFile}>
           <input
             type="text"
-            placeholder="Folder Name"
+            placeholder="File Name"
             className="p-2 border-[1px] outline-none
                             rounded-md w-full mb-3 text-[15px]"
             style={{ fontFamily: "Inter" }}
-            onChange={(e) => setFolderName(e.target.value)}
+            onChange={(e) => setFileName(e.target.value)}
           />
           <button
             className="bg-blue-500
@@ -63,7 +60,7 @@ const CreateFolderModal = ({
             style={{ fontFamily: "Inter" }}
             type="submit"
           >
-            Create
+            Rename
           </button>
         </form>
       </div>
@@ -71,4 +68,4 @@ const CreateFolderModal = ({
   );
 };
 
-export default CreateFolderModal;
+export default RenameFileModal;

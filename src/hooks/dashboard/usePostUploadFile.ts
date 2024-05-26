@@ -6,7 +6,7 @@ import { File } from "@/types/File";
 interface FileParams {
     user_id: string;
     folder_id: string | null;
-    file: File;
+    file: any;
 }
 
 const usePostUploadFile = () => {

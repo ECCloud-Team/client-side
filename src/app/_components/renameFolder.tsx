@@ -4,28 +4,26 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder, faTimes } from "@fortawesome/free-solid-svg-icons";
 import usePostCreateFolder from "@/hooks/dashboard/usePostCreateFolder";
+import useRenameFolder from "@/hooks/dashboard/useRenameFolder";
 
-const CreateFolderModal = ({
+const RenameFolderModal = ({
   isOpen,
   onClose,
-  parent_id,
+  folder_id
 }: {
   isOpen: boolean;
   onClose: () => void;
-  parent_id: string;
+  folder_id: string;
 }) => {
-  const { createFolder } = usePostCreateFolder();
+  const { renameFolder } = useRenameFolder();
   const [folderName, setFolderName] = useState("");
-  const handleCreateFolder = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRenameFolder = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Lakukan tindakan untuk membuat folder baru di sini
-    createFolder({
+    renameFolder({
       name: folderName,
-      user_id: "user123",
-      parent_id: parent_id,
+      id: folder_id,
     });
-    console.log("Folder Name:", folderName);
-    // Reset nilai input setelah membuat folder
     setFolderName("");
     // Tutup modal setelah proses pembuatan folder selesai
     onClose();
@@ -38,7 +36,7 @@ const CreateFolderModal = ({
       <div className="bg-white rounded-lg p-6 max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold" style={{ fontFamily: "Inter" }}>
-            Create New Folder
+            Rename Folder
           </h2>
           <button
             type="button"
@@ -48,7 +46,7 @@ const CreateFolderModal = ({
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
-        <form onSubmit={handleCreateFolder}>
+        <form onSubmit={handleRenameFolder}>
           <input
             type="text"
             placeholder="Folder Name"
@@ -63,7 +61,7 @@ const CreateFolderModal = ({
             style={{ fontFamily: "Inter" }}
             type="submit"
           >
-            Create
+            Rename
           </button>
         </form>
       </div>
@@ -71,4 +69,4 @@ const CreateFolderModal = ({
   );
 };
 
-export default CreateFolderModal;
+export default RenameFolderModal;

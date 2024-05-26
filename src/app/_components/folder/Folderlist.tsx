@@ -6,6 +6,7 @@ import { File } from "@/types/File";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 // import useFolderTree from "@/hooks/useFolderTree";
 
 interface FolderlistProps {
@@ -14,6 +15,7 @@ interface FolderlistProps {
 
 export default function Folderlist({ folders }: FolderlistProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -24,14 +26,14 @@ export default function Folderlist({ folders }: FolderlistProps) {
         <h2 className="text-[17px] font-semibold items-center">
           Folders
           <span className="float-right font-normal text-[12px] cursor-pointer text-blue-500">
-              View All
+            View All
           </span>
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-3 gap-3 ">
           {folders?.map((item, i) => (
-            <Link key={i} href={`/folders/${item._id}`}>
+            <div key={i} onClick={() => router.push(`/folders/${item._id}`)}>
               <Folderitems folder={item} />
-            </Link>
+            </div>
           ))}
         </div>
       </div>
