@@ -13,12 +13,23 @@ import {
   faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import '@fontsource/inter'
+import CreateFolderModal from "./Createfolder";
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [expanded, setExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [newdropdownOpen, setNewDropdownOpen] = useState(false);
   const [userdropdownOpen, setUserDropdownOpen] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+      setShowModal(true);
+    };
+    
+    const closeModal = () => {
+      setShowModal(false);
+    };
 
   const toggleNewDropdown = () => {
     setNewDropdownOpen(!newdropdownOpen);
@@ -47,10 +58,11 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
               New
             </button>
             {dropdownOpen && (
-              <ul className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 shadow bg-white rounded-md">
-                <Link href="/categories/New-Folder" className="text-sm"style={{fontFamily:'Inter'}}>
+              <ul className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 bg-white rounded-md">
+                <Link href="/" className="text-sm"style={{fontFamily:'Inter'}} onClick={openModal}>
                   New Folder
                 </Link>
+                <CreateFolderModal isOpen={showModal} onClose={closeModal} />
                 <Link href="/categories/File-Upload" className="text-sm" style={{fontFamily:'Inter'}}>
                   File Upload
                 </Link>
@@ -69,10 +81,14 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               className="flex  justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+              onClick={openModal}
             >
               <FontAwesomeIcon icon={faFolder} className="mr-2" />
-              <Link href='#' style={{fontFamily:'Inter'}}>New Folder</Link>
+              <Link href='/' style={{fontFamily:'Inter'}}>New Folder</Link>
             </button>
+
+            <CreateFolderModal isOpen={showModal} onClose={closeModal} />
+            
             <button
               type="button"
               className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
