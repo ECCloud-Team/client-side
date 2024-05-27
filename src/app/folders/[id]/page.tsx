@@ -2,14 +2,16 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useGetFolderByParentId from "@/hooks/useGetFoldersByParentId";
-import useGetFilesByFolderId from "@/hooks/useGetFilesByFolderId";
-import useGetFolderById from "@/hooks/useGetFolderById";
+import useGetFolderByParentId from "@/hooks/dashboard/useGetFoldersByParentId";
+import useGetFilesByFolderId from "@/hooks/dashboard/useGetFilesByFolderId";
+import useGetFolderById from "@/hooks/dashboard/useGetFolderById";
 import { cp } from "fs";
 import Searchbar from "@/app/_components/Searchbar";
 import Folderlist from "@/app/_components/folder/Folderlist";
 import Sidebar from "@/app/_components/Sidebar";
 import Filelist from "@/app/_components/file/Filelist";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const folderlist = [
   {
@@ -108,36 +110,43 @@ const fileList = [
 ];
 
 const Folder = ({ params }: { params: { id: string } }) => {
-  // const router = useRouter();
-  // console.log(router);
-  // const { id } = router.query;
   const { id } = params;
-  console.log(id);
 
-  // const { folder, loading, error } = useGetFolderById(id as string);
-  // const {
-  //   folders,
-  //   loading: loadingFolders,
-  //   error: errorFolders,
-  // } = useGetFolderByParentId(id as string);
-  // const {
-  //   files,
-  //   loading: loadingFiles,
-  //   error: errorFiles,
-  // } = useGetFilesByFolderId(id as string);
+  const { folder, loading, error } = useGetFolderById(id as string);
+  const {
+    folders,
+    loading: loadingFolders,
+    error: errorFolders,
+  } = useGetFolderByParentId(id as string);
+  const {
+    files,
+    loading: loadingFiles,
+    error: errorFiles,
+  } = useGetFilesByFolderId(id as string);
 
   return (
     <div className="flex">
-      <Sidebar>
+      <Sidebar folderParentId={id}>
         <li></li>
       </Sidebar>
       <div className="flex flex-col w-full">
         <Searchbar />
-        <Folderlist folders={folderlist}  />
-        {/* <Folderlist folders={folders}  /> */}
+        <div>
+          <div className="flex mb-4">
+            <button
+                  type="button"
+                  className="flex items-center text-sm hover:text-blue-300"
+                >
+                  <Link href='/' style={{fontFamily:'Inter'}}><FontAwesomeIcon icon={faCircleArrowLeft} className="ml-12 text-[24px] mr-2 justify-center" /></Link>
+            </button>
+            <h2 className="font-bold text-[24px] pb-0.5">Nested Folder</h2>
+          </div>
+        {/* <Folderlist folders={folderlist}  /> */}
+        <Folderlist folders={folders}  />
+        </div>
         <div className="flex flex-col gap-8">
-          <Filelist files={fileList}/>
-          {/* <Filelist files={files}/> */}
+          {/* <Filelist files={fileList}/> */}
+          <Filelist files={files}/>
         </div>
       </div>
     </div>
