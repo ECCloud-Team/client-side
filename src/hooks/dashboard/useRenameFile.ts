@@ -11,10 +11,12 @@ interface FileRenameParams {
 const useRenameFile = () => {
   const renameFile = async ({ id, filename }: FileRenameParams) => {
     try {
+      const token = localStorage.getItem("authToken");
       const res = await fetch(`http://localhost:4000/files/rename/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ filename }),
       });
@@ -25,7 +27,7 @@ const useRenameFile = () => {
     } catch (err: any) {
       throw new Error(err.message);
     }
-  }
+  };
   return { renameFile };
 };
 

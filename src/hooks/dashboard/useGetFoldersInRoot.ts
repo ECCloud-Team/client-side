@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Folder } from "@/types/Folder";
 import { File } from "@/types/File";
 
-const useGetFoldersInRoot = (user_id: String) => {
+const useGetFoldersInRoot = () => {
   const [folders, setFolders] = useState<Folder[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,9 +11,13 @@ const useGetFoldersInRoot = (user_id: String) => {
   useEffect(() => {
     const fetchFolders = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:4000/folders/root/${user_id}`
-        );
+        const token = localStorage.getItem("authToken");
+        const res = await fetch(`http://localhost:4000/folders/root/`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }

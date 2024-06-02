@@ -11,10 +11,12 @@ interface FolderRenameParams {
 const useRenameFolder = () => {
   const renameFolder = async ({ id, name }: FolderRenameParams) => {
     try {
+      const token = localStorage.getItem("authToken");
       const res = await fetch(`http://localhost:4000/folders/rename/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ name }),
       });

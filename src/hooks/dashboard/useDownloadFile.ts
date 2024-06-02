@@ -12,10 +12,11 @@ const useDownloadFile = () => {
 const [file, setFile] = useState<File[]>([]);
   const downloadFile = async ({ id }: FileDownloadParams) => {
     try {
+      const token = localStorage.getItem("authToken");
       const res = await fetch(`http://localhost:4000/files/download/${id}`, {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!res.ok) {
