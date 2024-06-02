@@ -13,7 +13,7 @@ export const useLogout = () => {
       localStorage.removeItem("authToken");
       setError(null);
       // Redirect ke halaman login atau halaman lain yang sesuai
-      router.push("/sign-in");
+      router.push("/login");
     } catch (error: any) {
       setError("Logout failed. Please try again.");
     } finally {

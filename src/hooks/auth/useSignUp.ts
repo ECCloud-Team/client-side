@@ -10,7 +10,7 @@ export const useSignUp = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "hhttp://localhost:4000/auth/register",
+        "http://localhost:4000/auth/register",
         {
           method: "POST",
           headers: {
