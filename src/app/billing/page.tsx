@@ -52,7 +52,7 @@ export default function Billing() {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar folderParentId={""} children={undefined} />
       <div className="w-full min-h-screen p-6">
         <Head>
           <title>Billing</title>
@@ -82,12 +82,6 @@ export default function Billing() {
                 </div>
                 {message && <p className="mt-4 text-gray-700">{message}</p>}
                 {error && <p className="mt-4 text-red-500">Error: {error}</p>}
-                <Link
-                  href="/"
-                  className="px-4 py-2 mt-4 text-white bg-blue-500 rounded"
-                >
-                  Back to Home
-                </Link>
                 <button className="px-4 py-2 mt-4 text-white bg-green-500 rounded">
                   Make Payment
                 </button>
