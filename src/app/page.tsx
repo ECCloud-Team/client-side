@@ -8,6 +8,7 @@ import Filelist from "./_components/file/Filelist";
 import { use } from "react";
 import path from "path";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import { useRouter } from "next/navigation";
 
 const folderlist = [
   {
@@ -106,7 +107,7 @@ const fileList = [
 ];
 
 export default function Home() {
-  const user_id = "user123";
+  const router = useRouter();
   const { user } = useCurrentUser();
   const { folders, loading, error } = useGetFoldersInRoot();
   const {
@@ -114,7 +115,9 @@ export default function Home() {
     loading: loadingFiles,
     error: errorFiles,
   } = useGetFilesInRoot();
-  console.log(user)
+  if (localStorage.getItem("authToken") === null) {
+    router.push("/login");
+  }
   return (
     <div className="flex">
       <Sidebar folderParentId={""}>
