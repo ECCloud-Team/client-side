@@ -196,7 +196,6 @@ export default function Sidebar({
                 ref={userDropdownRef}
                 className="absolute left-56 bottom-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md "
               >
-                <div className="h-px bg-gray-300 w-full"></div>
                 <Link href="/categories/File-Upload" className="text-sm">
                   Log Out
                 </Link>
