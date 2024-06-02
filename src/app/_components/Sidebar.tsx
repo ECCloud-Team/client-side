@@ -12,12 +12,14 @@ import {
   faHome,
   faClockRotateLeft,
   faFileInvoiceDollar,
-  faBox
+  faBox,
 } from "@fortawesome/free-solid-svg-icons";
 import "@fontsource/inter";
 import CreateFolderModal from "./Createfolder";
 import usePostUploadFile from "@/hooks/dashboard/usePostUploadFile";
 import Tracker from "./Tracker";
+import { useLogout } from "@/hooks/auth/useLogout";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 export default function Sidebar({
   folderParentId,
@@ -33,6 +35,8 @@ export default function Sidebar({
   const [showModal, setShowModal] = useState(false);
   const newDropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useCurrentUser();
+  const { logout, error, loading } = useLogout();
 
   useEffect(() => {
     if (fileUpload) {
@@ -66,6 +70,10 @@ export default function Sidebar({
     };
   }, []);
 
+  const handleLogout = () => {
+    logout();
+  };
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -83,7 +91,7 @@ export default function Sidebar({
   };
 
   return (
-    <aside className="h-screen w-60">
+    <aside className="h-screen w-60 sticky top-0 left-0 ">
       <nav className="h-full flex flex-col bg-indigo-50 border-r-2 border-indigo-200 shadow-sm">
         <div className="px-12 py-5 flex justify-between items-center font-serif text-4xl font-bold">
           <div className="items-center relative px-1">
@@ -140,7 +148,10 @@ export default function Sidebar({
               type="button"
               className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
             >
-              <FontAwesomeIcon icon={faFileInvoiceDollar} className="mb-1 mr-2" />
+              <FontAwesomeIcon
+                icon={faFileInvoiceDollar}
+                className="mb-1 mr-2"
+              />
               <Link href="/billing" style={{ fontFamily: "Inter" }}>
                 Billing
               </Link>
@@ -182,8 +193,8 @@ export default function Sidebar({
         <div className="border-t border-indigo-100 flex p-3 bg-white">
           <div className="flex justify-between item-center w-52 ml-3">
             <div className="leading-4">
-              <h4 className="font-semibold">Test</h4>
-              <span className="text-xs text-gray-600">Tes@gmail.com</span>
+              <h4 className="font-semibold">{user?.name}</h4>
+              <span className="text-xs text-gray-600">{user?.email}</span>
             </div>
             <button type="button" onClick={toggleUserDropdown}>
               <FontAwesomeIcon
@@ -196,10 +207,9 @@ export default function Sidebar({
                 ref={userDropdownRef}
                 className="absolute left-56 bottom-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md "
               >
-                <div className="h-px bg-gray-300 w-full"></div>
-                <Link href="/categories/File-Upload" className="text-sm">
-                  Log Out
-                </Link>
+                <button className="text-sm w-16 drop-shadow-lg" onClick={handleLogout} disabled={loading}>
+                  {loading ? "Loading" : "Log Out"}
+                </button>
               </div>
             )}
           </div>
