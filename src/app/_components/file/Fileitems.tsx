@@ -12,11 +12,13 @@ import { useState } from "react";
 import Link from "next/link";
 import RenameFileModal from "../renameFile";
 import useDeleteFile from "@/hooks/dashboard/useDeleteFile";
+import useDownloadFile from "@/hooks/dashboard/useDownloadFile";
 
 interface FileitemsProps {
   file: File;
 }
 export default function Fileitems({ file }: FileitemsProps) {
+  const { downloadFile, file:downloadedFile, error, loading} = useDownloadFile();
   const { deleteFile } = useDeleteFile();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -33,6 +35,21 @@ export default function Fileitems({ file }: FileitemsProps) {
     setShowModal(false);
   };
 
+  const handleDownloadFile = async () => {
+    try {
+      const blob = await downloadFile({ id: file._id });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.filename; // Ganti dengan nama file yang sesuai
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (err) {
+      console.error('Download failed:', err);
+    }
+  }
+
   const handleDelete = () => {
     deleteFile({ id: file._id });
   };
@@ -40,10 +57,13 @@ export default function Fileitems({ file }: FileitemsProps) {
     <div
       className="grid grid-cols-2 md:grid-cols-2 justify-between cursor-pointer hover:bg-white
         p-3 rounded-md"
+        onClick={handleDownloadFile}
     >
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon icon={faFile} className="text-[20px]" />
         <h2 className="text-[15px]">{file.filename}</h2>
+        {loading && <p className="text-[15px]">Downloading...</p>}
+        {error && <p className="text-[15px]">{error}</p>}
       </div>
       <div className="grid grid-cols-3">
         <h2 className="text-[15px]">

@@ -52,7 +52,7 @@ export default function Billing() {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar folderParentId="" children={undefined}/>
       <div className="w-full min-h-screen p-6">
         <Head>
           <title>Billing</title>
