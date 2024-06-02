@@ -3,20 +3,21 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Sidebar from "../_components/Sidebar";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 export default function Billing() {
   const [bill, setBill] = useState(0);
   const [totalStorage, setTotalStorage] = useState(0);
-  const [userName, setUserName] = useState("");
+  const {user} = useCurrentUser()
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
+    const user = localStorage.getItem("userId");
+    if (user) {
+      setUserId(user);
     } else {
       setMessage("User ID not found. Please upload files first.");
       setLoading(false);
@@ -52,7 +53,7 @@ export default function Billing() {
 
   return (
     <div className="flex">
-      <Sidebar folderParentId="" children={undefined}/>
+      <Sidebar folderParentId={""} children={undefined} />
       <div className="w-full min-h-screen p-6">
         <Head>
           <title>Billing</title>
@@ -66,7 +67,11 @@ export default function Billing() {
               <>
                 <div className="w-full p-4 mb-4 text-center bg-gray-100 rounded-lg">
                   <p className="mb-2 text-lg font-medium">Name</p>
-                  <p className="text-xl font-bold text-gray-800">{userName}</p>
+                  <p className="text-xl font-bold text-gray-800">{user?.name}</p>
+                </div>
+                <div className="w-full p-4 mb-4 text-center bg-gray-100 rounded-lg">
+                  <p className="mb-2 text-lg font-medium">Plan</p>
+                  <p className="text-xl font-bold">Basic</p>
                 </div>
                 <div className="w-full p-4 mb-4 text-center bg-gray-100 rounded-lg">
                   <p className="mb-2 text-lg font-medium">Total Storage Used</p>
@@ -80,14 +85,8 @@ export default function Billing() {
                     Rp. {bill.toFixed(2)}
                   </p>
                 </div>
-                {message && <p className="mt-4 text-gray-700">{message}</p>}
+                {/* {message && <p className="mt-4 text-gray-700">{message}</p>} */}
                 {error && <p className="mt-4 text-red-500">Error: {error}</p>}
-                <Link
-                  href="/"
-                  className="px-4 py-2 mt-4 text-white bg-blue-500 rounded"
-                >
-                  Back to Home
-                </Link>
                 <button className="px-4 py-2 mt-4 text-white bg-green-500 rounded">
                   Make Payment
                 </button>
