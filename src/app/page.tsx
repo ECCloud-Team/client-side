@@ -112,7 +112,6 @@ export default function Home() {
     loading: loadingFiles,
     error: errorFiles,
   } = useGetFilesInRoot(user_id);
-  // console.log(localStorage.getItem("token"));
   return (
     <div className="flex">
       <Sidebar folderParentId={""}>

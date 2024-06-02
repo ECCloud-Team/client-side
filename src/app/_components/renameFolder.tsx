@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolder, faTimes } from "@fortawesome/free-solid-svg-icons";
-import usePostCreateFolder from "@/hooks/dashboard/usePostCreateFolder";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import useRenameFolder from "@/hooks/dashboard/useRenameFolder";
 
 const RenameFolderModal = ({
   isOpen,
   onClose,
-  folder_id
+  folder_id,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -17,15 +16,14 @@ const RenameFolderModal = ({
 }) => {
   const { renameFolder } = useRenameFolder();
   const [folderName, setFolderName] = useState("");
+
   const handleRenameFolder = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lakukan tindakan untuk membuat folder baru di sini
     renameFolder({
       name: folderName,
       id: folder_id,
     });
     setFolderName("");
-    // Tutup modal setelah proses pembuatan folder selesai
     onClose();
   };
 
@@ -33,7 +31,7 @@ const RenameFolderModal = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-6 max-w-md">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 sm:mx-0">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold" style={{ fontFamily: "Inter" }}>
             Rename Folder
@@ -50,14 +48,13 @@ const RenameFolderModal = ({
           <input
             type="text"
             placeholder="Folder Name"
-            className="p-2 border-[1px] outline-none
-                            rounded-md w-full mb-3 text-[15px]"
+            className="p-2 border-[1px] outline-none rounded-md w-full mb-3 text-[15px]"
             style={{ fontFamily: "Inter" }}
+            value={folderName}
             onChange={(e) => setFolderName(e.target.value)}
           />
           <button
-            className="bg-blue-500
-                text-white rounded-md p-2 px-3 w-full text-[15px]"
+            className="bg-blue-500 text-white rounded-md p-2 px-3 w-full text-[15px]"
             style={{ fontFamily: "Inter" }}
             type="submit"
           >
