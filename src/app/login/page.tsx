@@ -1,9 +1,10 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from 'react';
-import Link from 'next/link';
-import styles from './styles.module.css';
-import { useRouter } from 'next/navigation';
+import { useState, ChangeEvent, FormEvent } from "react";
+import Link from "next/link";
+import styles from "./styles.module.css";
+import { useRouter } from "next/navigation";
 import "@fontsource/inter";
+import { useLogin } from "@/hooks/auth/useLogin";
 
 interface LoginData {
   email: string;
@@ -11,9 +12,10 @@ interface LoginData {
 }
 
 const Login = () => {
-  const [data, setData] = useState<LoginData>({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [data, setData] = useState<LoginData>({ email: "", password: "" });
+  // const [error, setError] = useState('');
   const router = useRouter();
+  const { login, error, loading } = useLogin();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -21,30 +23,7 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const url = 'http://localhost:8080/api/auth';
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        setError(errorData.message);
-        return;
-      }
-
-      const result = await res.json();
-      localStorage.setItem('token', result.data);
-      console.log(result.data);
-      router.push('/');
-    } catch (error) {
-      console.error('An unexpected error occurred:', error);
-      setError('An unexpected error occurred.');
-    }
+    login(data.email, data.password);
   };
 
   return (
@@ -72,18 +51,18 @@ const Login = () => {
               className={styles.input}
             />
             {error && <div className={styles.error_msg}>{error}</div>}
-            <button type="submit" className={styles.green_btn}>
-              Sign In
+            <button type="submit" className={styles.green_btn} disabled={loading}>
+              {loading ? "Loading" : "Sign In"}
             </button>
           </form>
         </div>
         <div className={styles.right}>
           <h1>New Here ?</h1>
-            <a href="/signup">
-              <button type="button" className={styles.white_btn}>
-                Sign Up
-              </button>
-            </a>
+          <a href="/signup">
+            <button type="button" className={styles.white_btn}>
+              Sign Up
+            </button>
+          </a>
         </div>
       </div>
     </div>
