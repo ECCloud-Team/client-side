@@ -10,10 +10,12 @@ interface FileDeleteParams {
 const useDeleteFile = () => {
   const deleteFile = async ({ id }: FileDeleteParams) => {
     try {
+      const token = localStorage.getItem("authToken");
       const res = await fetch(`http://localhost:4000/files/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!res.ok) {
@@ -23,7 +25,7 @@ const useDeleteFile = () => {
     } catch (err: any) {
       throw new Error(err.message);
     }
-  }
+  };
   return { deleteFile };
 };
 

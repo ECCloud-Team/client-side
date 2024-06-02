@@ -7,6 +7,7 @@ import useGetFilesInRoot from "@/hooks/dashboard/useGetFilesInRoot";
 import Filelist from "./_components/file/Filelist";
 import { use } from "react";
 import path from "path";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const folderlist = [
   {
@@ -106,12 +107,14 @@ const fileList = [
 
 export default function Home() {
   const user_id = "user123";
-  const { folders, loading, error } = useGetFoldersInRoot(user_id);
+  const { user } = useCurrentUser();
+  const { folders, loading, error } = useGetFoldersInRoot();
   const {
     files,
     loading: loadingFiles,
     error: errorFiles,
-  } = useGetFilesInRoot(user_id);
+  } = useGetFilesInRoot();
+  console.log(user)
   return (
     <div className="flex">
       <Sidebar folderParentId={""}>

@@ -28,7 +28,13 @@ const useFolderTree = (userId: string) => {
   useEffect(() => {
     const fetchFolderTree = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/folders/folder-tree/${userId}`);
+        const token = localStorage.getItem("authToken");
+        const res = await fetch(`http://localhost:4000/folders/folder-tree/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
