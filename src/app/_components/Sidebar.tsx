@@ -13,6 +13,7 @@ import {
   faClockRotateLeft,
   faFileInvoiceDollar,
   faBox,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import "@fontsource/inter";
 import CreateFolderModal from "./Createfolder";
@@ -20,6 +21,7 @@ import usePostUploadFile from "@/hooks/dashboard/usePostUploadFile";
 import Tracker from "./Tracker";
 import { useLogout } from "@/hooks/auth/useLogout";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import useGetTotalSize from "@/hooks/billing/useGetTotalSize";
 
 export default function Sidebar({
   folderParentId,
@@ -37,6 +39,11 @@ export default function Sidebar({
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useCurrentUser();
   const { logout, error, loading } = useLogout();
+  const {
+    totalSize,
+    loading: totalSizeLoading,
+    error: totalSizeError,
+  } = useGetTotalSize();
 
   useEffect(() => {
     if (fileUpload) {
@@ -148,6 +155,15 @@ export default function Sidebar({
               type="button"
               className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
             >
+              <FontAwesomeIcon icon={faBox} className="mb-1 mr-2" />
+              <Link href="/storg" style={{ fontFamily: "Inter" }}>
+                Storage
+              </Link>
+            </button>
+            <button
+              type="button"
+              className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+            >
               <FontAwesomeIcon
                 icon={faFileInvoiceDollar}
                 className="mb-1 mr-2"
@@ -160,9 +176,12 @@ export default function Sidebar({
               type="button"
               className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
             >
-              <FontAwesomeIcon icon={faBox} className="mb-1 mr-2" />
-              <Link href="/storg" style={{ fontFamily: "Inter" }}>
-                Storage
+              <FontAwesomeIcon
+                icon={faClock}
+                className="mr-2 mb-0.5"
+              />
+              <Link href="/hourly-usage" style={{ fontFamily: "Inter" }}>
+                Hourly Usage
               </Link>
             </button>
             <button
@@ -186,7 +205,7 @@ export default function Sidebar({
             className="mt-10 text-[17px] w-full flex flex-col"
           >
             <Link href="/storg" style={{ fontFamily: "Inter" }}>
-              <Tracker />
+              <Tracker totalSize={totalSize as number} />
             </Link>
           </button>
         </div>
@@ -207,7 +226,11 @@ export default function Sidebar({
                 ref={userDropdownRef}
                 className="absolute left-56 bottom-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md "
               >
-                <button className="text-sm w-16 drop-shadow-lg" onClick={handleLogout} disabled={loading}>
+                <button
+                  className="text-sm w-16 drop-shadow-lg"
+                  onClick={handleLogout}
+                  disabled={loading}
+                >
                   {loading ? "Loading" : "Log Out"}
                 </button>
               </div>

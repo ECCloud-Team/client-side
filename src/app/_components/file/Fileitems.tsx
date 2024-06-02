@@ -57,7 +57,7 @@ export default function Fileitems({ file }: FileitemsProps) {
     <div
       className="grid grid-cols-2 md:grid-cols-2 justify-between cursor-pointer hover:bg-white
         p-3 rounded-md"
-        onClick={handleDownloadFile}
+        onDoubleClick={handleDownloadFile}
     >
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon icon={faFile} className="text-[20px]" />

@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../_components/Sidebar";
 import "@fontsource/inter";
+import useGetUserLogs from "@/hooks/logs/useGetUserLogs";
 
 const ActivityPage = () => {
   const [activities, setActivities] = useState<
     { id: number; size:string; info: string; timestamp: string }[]
   >([]);
+  const { logs, error, loading } = useGetUserLogs()
 
   useEffect(() => {
     const mockActivities = [
@@ -56,19 +58,19 @@ const ActivityPage = () => {
               </tr>
             </thead>
             <tbody>
-              {activities.map((activity) => (
-                <tr key={activity.id} className="hover:bg-gray-100">
+              {logs?.map((log:any, i:number) => (
+                <tr key={i} className="hover:bg-gray-100">
                   <td className="border px-4 py-0.5 border-indigo-200 border-r-2 whitespace-nowrap">
-                    {activity.timestamp}
+                    {new Date(log.timestamp).toLocaleString('id-ID')}
                   </td>
                   <td className="border px-4 py-0.5 border-indigo-200 border-r-2 whitespace-nowrap">
-                    {activity.id}
+                    {log.type}
                   </td>
                   <td className="border px-4 py-0.5 border-indigo-200 border-r-2 whitespace-nowrap">
-                    {activity.size}
+                    {log.size? log.size : "null"}
                   </td>
                   <td className="border px-4 py-0.5 border-indigo-200 border-r-2 whitespace-nowrap">
-                    {activity.info}
+                    {log.message}
                   </td>
                 </tr>
               ))}
