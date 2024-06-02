@@ -75,8 +75,8 @@ export default function Billing() {
                             </div>
                             {message && <p className="mt-4 text-gray-700">{message}</p>}
                             {error && <p className="mt-4 text-red-500">Error: {error}</p>}
-                            <Link href="/">
-                                <a className="px-4 py-2 mt-4 text-white bg-blue-500 rounded">Back to Home</a>
+                            <Link href="/" className="px-4 py-2 mt-4 text-white bg-blue-500 rounded">
+                                Back to Home
                             </Link>
                             <button className="px-4 py-2 mt-4 text-white bg-green-500 rounded">Make Payment</button>
                         </>
