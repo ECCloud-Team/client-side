@@ -13,27 +13,24 @@ import useDeleteFolder from "@/hooks/dashboard/useDeleteFolder";
 
 interface FolderitemsProps {
   folder: Folder;
+  openModal: (folderId: string) => void;
+  toggleDropdown: (folderId: string) => void;
+  isDropdownOpen: boolean;
 }
 
-export default function Folderitems({ folder }: FolderitemsProps) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+export default function Folderitems({
+  folder,
+  openModal,
+  toggleDropdown,
+  isDropdownOpen,
+}: FolderitemsProps) {
   const { deleteFolder } = useDeleteFolder();
-  const toggleDropdown = (e: any) => {
-    e.stopPropagation();
-    setDropdownOpen(!dropdownOpen);
-  };
-  const openModal = (e: any) => {
-    e.stopPropagation();
-    setShowModal(true);
-  };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
     deleteFolder({ id: folder._id });
   };
+
   return (
     <div
       className="w-full flex flex-col justify-center items-center h-[140px] border-[2px] border-white rounded-lg p-5 
@@ -41,30 +38,28 @@ export default function Folderitems({ folder }: FolderitemsProps) {
     >
       <div className="flex">
         <FontAwesomeIcon icon={faFolder} className="text-[40px]" />
-        <span className="">
+        <span>
           <button
             type="button"
-            className="absolute top-2 right-2 z-20 hover:bg-gray-300 flex items-center mx-auto justify-center rounded-full w-6 h-6"
-            data-dropdown-toggle="dropdown"
-            onClick={toggleDropdown}
+            className="absolute top-2 right-2 z-20 hover:bg-gray-300 flex items-center justify-center rounded-full w-6 h-6"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleDropdown(folder._id);
+            }}
           >
-            <FontAwesomeIcon icon={faEllipsisVertical} className="" />
+            <FontAwesomeIcon icon={faEllipsisVertical} />
           </button>
         </span>
-        <div></div>
       </div>
-      {dropdownOpen && (
-        <div className="absolute right-1 z-30 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
-          <button onClick={openModal} className="text-sm z-30">
+      {isDropdownOpen && (
+        <div className="absolute right-1 z-30 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md">
+          <button onClick={(e) => { e.stopPropagation(); openModal(folder._id); }} className="text-sm">
             Rename Folder
           </button>
           <div className="h-px bg-gray-300 w-full"></div>
-          <button onClick={handleDelete} className="text-sm" >Delete Folder</button>
-          <RenameFolderModal
-            folder_id={folder._id}
-            isOpen={showModal}
-            onClose={closeModal}
-          />
+          <button onClick={handleDelete} className="text-sm">
+            Delete Folder
+          </button>
         </div>
       )}
       <h2 className="line-clamp-2 text-center" style={{ fontFamily: "Inter" }}>
