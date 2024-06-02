@@ -11,10 +11,14 @@ import {
   faEllipsisVertical,
   faHome,
   faClockRotateLeft,
+  faFileInvoiceDollar,
+  faBox
 } from "@fortawesome/free-solid-svg-icons";
 import "@fontsource/inter";
 import CreateFolderModal from "./Createfolder";
 import usePostUploadFile from "@/hooks/dashboard/usePostUploadFile";
+import Tracker from "./Tracker";
+
 export default function Sidebar({
   folderParentId,
   children,
@@ -94,7 +98,10 @@ export default function Sidebar({
               New
             </button>
             {dropdownOpen && (
-              <div ref={newDropdownRef} className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 bg-white rounded-md">
+              <div
+                ref={newDropdownRef}
+                className="absolute z-[1] flex flex-col space-y-4 p-2 m-2 bg-white rounded-md"
+              >
                 <button
                   className="text-sm"
                   style={{ fontFamily: "Inter" }}
@@ -107,7 +114,10 @@ export default function Sidebar({
                   isOpen={showModal}
                   onClose={closeModal}
                 />
-                <button className="text-sm relative" style={{ fontFamily: "Inter" }}>
+                <button
+                  className="text-sm relative"
+                  style={{ fontFamily: "Inter" }}
+                >
                   <input
                     type="file"
                     onChange={(e) => setFileUpload(e.target.files![0])}
@@ -119,9 +129,9 @@ export default function Sidebar({
             )}
             <button
               type="button"
-              className="flex justify-between gap-2 mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+              className="flex justify-between gap-1 mt-10 py-2 items-center text-[17px] text-sm hover:text-blue-300"
             >
-              <FontAwesomeIcon icon={faHome} className="mr-2" />
+              <FontAwesomeIcon icon={faHome} className="mb-0.5 mr-2" />
               <Link href="/" style={{ fontFamily: "Inter" }}>
                 Home
               </Link>
@@ -130,9 +140,27 @@ export default function Sidebar({
               type="button"
               className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
             >
+              <FontAwesomeIcon icon={faFileInvoiceDollar} className="mb-1 mr-2" />
+              <Link href="/billing" style={{ fontFamily: "Inter" }}>
+                Billing
+              </Link>
+            </button>
+            <button
+              type="button"
+              className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+            >
+              <FontAwesomeIcon icon={faBox} className="mb-1 mr-2" />
+              <Link href="/storg" style={{ fontFamily: "Inter" }}>
+                Storage
+              </Link>
+            </button>
+            <button
+              type="button"
+              className="flex justify-between gap-2 mt-5 py-2 items-center text-[17px] text-sm hover:text-blue-300"
+            >
               <FontAwesomeIcon
                 icon={faClockRotateLeft}
-                className="mr-2 justify-center"
+                className="mr-2 mb-0.5"
               />
               <Link href="/activitylog" style={{ fontFamily: "Inter" }}>
                 Logs
@@ -141,23 +169,33 @@ export default function Sidebar({
           </div>
         </div>
         <ul className="flex-1 px-3">{children}</ul>
+        <div className="w-full flex justify-center px-6 pb-5">
+          <button
+            type="button"
+            className="mt-10 text-[17px] w-full flex flex-col"
+          >
+            <Link href="/storg" style={{ fontFamily: "Inter" }}>
+              <Tracker />
+            </Link>
+          </button>
+        </div>
         <div className="border-t border-indigo-100 flex p-3 bg-white">
           <div className="flex justify-between item-center w-52 ml-3">
             <div className="leading-4">
               <h4 className="font-semibold">Test</h4>
               <span className="text-xs text-gray-600">Tes@gmail.com</span>
             </div>
-            <button
-              type="button"
-              onClick={toggleUserDropdown}
-            >
+            <button type="button" onClick={toggleUserDropdown}>
               <FontAwesomeIcon
                 icon={faEllipsisVertical}
                 className="mr-2 mt-0.5"
               />
             </button>
             {userDropdownOpen && (
-              <div ref={userDropdownRef} className="absolute left-56 bottom-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md ">
+              <div
+                ref={userDropdownRef}
+                className="absolute left-56 bottom-1 z-10 flex flex-col space-y-2 p-2 m-2 shadow bg-white rounded-md "
+              >
                 <div className="h-px bg-gray-300 w-full"></div>
                 <Link href="/categories/File-Upload" className="text-sm">
                   Log Out
