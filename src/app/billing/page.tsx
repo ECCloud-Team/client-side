@@ -4,15 +4,33 @@ import Head from "next/head";
 import Link from "next/link";
 import Sidebar from "../_components/Sidebar";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import useGetTotalSize from "@/hooks/billing/useGetTotalSize";
+import useGetTotalBilling from "@/hooks/billing/useGetTotalBilling";
 
 export default function Billing() {
   const [bill, setBill] = useState(0);
-  const [totalStorage, setTotalStorage] = useState(0);
   const {user} = useCurrentUser()
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { totalSize } = useGetTotalSize()
+  const { totalBilling } = useGetTotalBilling();
+  const sizeInKB = totalSize / 1024;
+  const sizeInMB = totalSize / (1024 * 1024);
+  const sizeInGB = totalSize / (1024 * 1024 * 1024);
+
+  const renderSize = () => {
+    if (totalSize < 1024) {
+      return `${totalSize} B`;
+    } else if (totalSize < 1024 * 1024) {
+      return `${sizeInKB.toFixed(2)} KB`;
+    } else if (totalSize < 1024 * 1024 * 1024) {
+      return `${sizeInMB.toFixed(2)} MB`;
+    } else {
+      return `${sizeInGB.toFixed(2)} GB`;
+    }
+  };
 
   useEffect(() => {
     const user = localStorage.getItem("userId");
@@ -76,13 +94,13 @@ export default function Billing() {
                 <div className="w-full p-4 mb-4 text-center bg-gray-100 rounded-lg">
                   <p className="mb-2 text-lg font-medium">Total Storage Used</p>
                   <p className="text-xl font-bold text-gray-800">
-                    {(totalStorage / (1024 * 1024 * 1024)).toFixed(2)} GB
+                    {renderSize()}
                   </p>
                 </div>
                 <div className="w-full p-4 mb-4 text-center bg-gray-100 rounded-lg">
                   <p className="mb-2 text-lg font-medium">Total Bill</p>
                   <p className="text-2xl font-bold text-gray-800">
-                    Rp. {bill.toFixed(2)}
+                    Rp. {totalBilling?.totalBilling.toFixed(2)}
                   </p>
                 </div>
                 {/* {message && <p className="mt-4 text-gray-700">{message}</p>} */}

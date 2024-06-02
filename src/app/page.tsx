@@ -124,7 +124,8 @@ export default function Home() {
         <li></li>
       </Sidebar>
       <div className="w-full">
-        <Searchbar />
+        {/* <Searchbar /> */}
+        <div className="h-16"></div>
         {/* <Folderlist folders={folderlist} /> */}
         <Folderlist folders={folders} />
         <div className="flex flex-col gap-8">

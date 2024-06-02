@@ -130,7 +130,8 @@ const Folder = ({ params }: { params: { id: string } }) => {
         <li></li>
       </Sidebar>
       <div className="flex flex-col w-full">
-        <Searchbar />
+        {/* <Searchbar /> */}
+        <div className="h-16"></div>
         <div>
           <div className="flex mb-4">
             <button
